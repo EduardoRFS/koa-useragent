@@ -1,8 +1,8 @@
 module.exports = function() {
   var userAgent = new require('./lib/useragent').UserAgent();
 
-  return function *(next) {
-    var source =  this.request.headers['user-agent'] || '';
+  return function (ctx, next) {
+    var source =  ctx.request.headers['user-agent'] || '';
     var ua = userAgent;
 
     ua.reset();
@@ -16,7 +16,7 @@ module.exports = function() {
     ua.Agent.platform = ua.getPlatform(ua.Agent.source);
     ua.Agent.browser = ua.getBrowser(ua.Agent.source);
     ua.Agent.version = ua.getBrowserVersion(ua.Agent.source);
-    ua.testNginxGeoIP(this.request.headers);
+    ua.testNginxGeoIP(ctx.request.headers);
     ua.testBot();
     ua.testMobile();
     ua.testAndroidTablet();
@@ -25,8 +25,8 @@ module.exports = function() {
     ua.testSilk();
     ua.testKindleFire();
 
-    this.state.userAgent = ua.Agent;
+    ctx.state.userAgent = ua.Agent;
 
-    yield next;
+    return next();
   };
 };

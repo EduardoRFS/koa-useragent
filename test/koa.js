@@ -1,20 +1,20 @@
 var userAgent = new require('../');
-var koa = new require('koa');
+var Koa = require('koa');
 var request = new require('supertest');
 
 exports['koa'] = function(test) {
-  var app = koa();
+  var app = new Koa();
 
   app.use(userAgent());
 
-  app.use(function*(next) {
-    test.ok(this.state.userAgent, Object);
-    yield next;
+  app.use(function (ctx, next) {
+    test.ok(ctx.state.userAgent, Object);
+    return next();
   });
 
   request(app.listen()).get('/').end(function() {
     test.done();
-    
+
     setTimeout(function() {
       process.exit();
     });
