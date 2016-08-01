@@ -1,11 +1,11 @@
 'use strict';
-const uaParser = require('ua-parser');
+const parser = require('ua-parser-js');
 
 module.exports = function() {
   return function (ctx, next) {
     let source =  ctx.request.headers['user-agent'] || '';
 
-    ctx.state.userAgent = uaParser.parse(source);
+    ctx.state.userAgent = parser(source);
 
     return next();
   };

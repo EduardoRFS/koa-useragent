@@ -3,7 +3,7 @@
   "description": "Koa.js middleware for useragent detection",
   "main": "index.js",
   "scripts": {
-    "test": "nodeunit test/browsers.js test/bots.js test/koa.js",
+    "test": "nodeunit test/koa.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "keywords": [
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "object-assign": "^4.0.1",
-    "ua-parser": "^0.3.5"
+    "ua-parser-js": "^0.7.10"
   },
   "version": "0.1.5"
 }
